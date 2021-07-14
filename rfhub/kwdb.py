@@ -634,8 +634,11 @@ class KeywordTable(object):
             "__module__": obj.__module__
         }
 
-        #  Populate the dictionary with object properties
-        obj_dict.update(obj.__dict__)
+        # Populate the dictionary with object properties, but
+        # remove non-serializable '_setter__types'
+        _temp_dict = obj.__dict__
+        _temp_dict.pop('_setter__types', None)
+        obj_dict.update(_temp_dict)
 
         return obj_dict
 

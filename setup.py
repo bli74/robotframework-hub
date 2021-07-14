@@ -5,13 +5,24 @@ in rfhub/version.py and then run the following commands:
     $ python setup.py sdist
     $ python3 -m twine upload dist/*
 
-
 """
 from setuptools import setup
+import re
 
-filename = 'rfhub/version.py'
-__version__ = "0.0.0"
+__version__: str = "0.0.0"
+filename: str = 'rfhub/version.py'
 exec(open(filename).read())
+
+setup_requires_packages: list = ['wheel']
+install_requires_packages: list = []
+test_requires_packages: list = ['coverage']
+
+with open('requirements.txt') as file:
+    for line in file:
+        line = re.sub('#.*$', '', line)     # Strip comments
+        line = line.strip()                 # Trim string
+        if line:
+            install_requires_packages.append(line)  # Add when string is not empty
 
 setup(
     name='robotframework-hub-bli',
@@ -28,7 +39,12 @@ setup(
     long_description_content_type="text/markdown",
     zip_safe=True,
     include_package_data=True,
-    install_requires=['Flask', 'watchdog', 'robotframework', 'tornado'],
+    python_requires=">=3.6",
+    setup_requires=setup_requires_packages,
+    install_requires=install_requires_packages,
+    extras_require={
+          'test': test_requires_packages
+    },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: Apache Software License",

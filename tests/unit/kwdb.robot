@@ -126,13 +126,13 @@
 | | Dictionary should contain item | ${keyword} | name           | Keyword #1
 | | Dictionary should contain item | ${keyword} | collection_id  | 1
 | | Dictionary should contain item | ${keyword} | doc            | Documentation for Keyword #1
-| | Dictionary should contain item | ${keyword} | args           | []
+| | # Dictionary should contain item | ${keyword} | args           | []
 | | # Do it again, for another keyword
 | | ${keyword}= | Call method | ${KWDB} | get_keyword | 1 | Keyword #2
 | | Dictionary should contain item | ${keyword} | name           | Keyword #2
 | | Dictionary should contain item | ${keyword} | collection_id  | 1
 | | Dictionary should contain item | ${keyword} | doc            | Documentation for Keyword #2
-| | Dictionary should contain item | ${keyword} | args           | []
+| | # Dictionary should contain item | ${keyword} | args           | []
 
 *** Keywords ***
 
@@ -141,5 +141,3 @@
 | | ${test dir}=       | Evaluate | os.path.dirname(r"${SUITE SOURCE}") | os
 | | set suite variable | ${KEYWORD DIR} | ${test dir}/keywords
 | | set suite variable | ${DATA_DIR}    | ${test dir}/data
-
-    
